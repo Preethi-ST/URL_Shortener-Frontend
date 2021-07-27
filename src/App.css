@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+body{
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1;
+  padding-top: 55px;  
+  height: 100vh;
+  width: 100%;
+ /*  background-image:linear-gradient(to bottom right, rgb(241, 205, 245) , rgb(107, 107, 241)); */
+  background-repeat: no-repeat;
+}
+.section{
+  height: 100vh;
+  width: 100%;
+ background-image:linear-gradient(to bottom right, rgb(241, 205, 245) , rgb(107, 107, 241)); 
+  background-repeat: no-repeat
+}
+input:focus {
+  outline: none;
+}
+  
+img{
+  margin: auto;
+  width: 100%;
+  height: inherit; 
+  object-fit:fill; 
+}
+
+.small{
+  font-size: .85rem;
+}
+.card{
+  padding : 5px
+}
+
+/* Login */
+.container-fluid{
+/*   border: 2px solid red;
+  margin-top: 50px; */
+  padding : 40px;
+  height: inherit;
+  width: 100%; 
+  
+}
+.center-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.authsetting{
+  background-image: url('./Images/wallwhite.JPG');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: auto;
+  font-size: 15px;
+  position: static;
+}
+.viewssetting{
+  background-image: url('./Images/graphbackground.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: auto;
+  font-size: 15px;
+  position: static;
+}
+select {
+  border : none;
+  border-bottom: 2px;
+}
+.display_graph{
+  background-image: url('./Images/graphbackground.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: inherit;
+ /*color : rgb(97, 15, 89)
+   background: url('./Images/graphbackground.jpg') no-repeat 
+  center center fixed; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;rgb(63, 21, 20)
+background-size: cover; */
+}
+
+/* .display_image{
+  background-image: url('./Images/darksky.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: inherit;
+  color : white
+} */
+.display_image{
+  width: 100%;
+  height: 350px;
+
+}  
+/* .cut-text {  */
+ /* These are technically the same, but use both */
+/*  overflow-wrap: break-word;
+ word-wrap: break-word;
+
+ -ms-word-break: break-all; */
+ /* This is the dangerous one in WebKit, as it breaks things wherever */
+ /* word-break: break-all; */
+ /* Instead use this non-standard one: */
+ /* word-break: break-word; */
+
+ /* Adds a hyphen where the word breaks, if supported (No Blink) */
+/*  -ms-hyphens: auto;
+ -moz-hyphens: auto;
+ -webkit-hyphens: auto;
+ hyphens: auto;
+  
+} */
+.cut-text{
+  height: 18px;
+  width: 240px;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color : white
+}
+table tr td,table a,table a:hover{
+  color : white
+}
+
+@media only screen and (min-width: 600px) {
+  .card{
+    width : 30rem;
+    padding: 20px;
+  }
+} 
+@media only screen and (max-width: 650px) {
+  .cut-text{
+    height: 18px;
+    width: 100px;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color : white
+  }
+} 

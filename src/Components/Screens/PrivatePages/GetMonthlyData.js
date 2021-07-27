@@ -1,0 +1,115 @@
+import React,{useContext} from 'react'
+import { useHistory } from 'react-router'
+import * as Yup from 'yup'
+import { Formik,Form } from 'formik'
+import FormControl from '../../Formik/FormControl'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { userContext } from '../../Context/AuthProvider'
+
+function GetMonthlyData({Monthly}) {
+    const {loggedIn,setLoggedIn,getLoggedInState}=useContext(userContext)
+    const history = useHistory();
+    const yearoptions = [
+        {key: '2021',value : 2021},
+        {key: '2020',value : 2020}
+    ]
+    const monthoptions = [
+        {key : 'Jan', value : 1},
+        {key : 'Feb', value : 2},
+        {key : 'Mar', value : 3},
+        {key : 'Apr', value : 4},
+        {key : 'May', value : 5},
+        {key : 'Jun', value : 6},
+        {key : 'Jul', value : 7},
+        {key : 'Aug', value : 8},
+        {key : 'Sep', value : 9},
+        {key : 'Oct', value : 10},
+        {key : 'Nov', value : 11},
+        {key : 'Dec', value : 12}
+    ]
+    const initialValues = {
+        year : '',
+        month : ''
+    }
+    const validationSchema = Yup.object({
+        year : Yup.number().required('choose year to proceed'),
+        month : Yup.string().required('Month is required')
+   })
+   const onSubmit = async (values) => {
+        let token = localStorage.getItem('authToken')
+        if(!token){
+            toast.error("Something wen't wrong", {
+                position: "top-right",
+                autoClose: false,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            })
+            setTimeout(()=>{
+                localStorage.removeItem('authToken')
+                setLoggedIn(false);
+                history.push('/login')
+            },2000)
+        }
+        const {year,month} = values
+        try{
+            const result = await axios.get(`https://server-shortly.herokuapp.com/api/private/dashboard-month/${year}/${month}`,
+            {
+                headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+                }
+            }) 
+            Monthly(result.data.month_sorted,month,year)
+
+        }catch(error){
+            console.log(error)
+            toast.error("Something wen't wrong", {
+                position: "top-right",
+                autoClose: false,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            })
+            setTimeout(()=>{
+                localStorage.removeItem('authToken')
+                setLoggedIn(false);
+                history.push('/login')
+            },2000)
+        }
+   }
+    return (
+        <>
+            <ToastContainer
+                position="top-right"
+                autoClose={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+            />
+            <Formik initialValues = {initialValues} validationSchema = {validationSchema} onSubmit = {onSubmit}>
+                {
+                    (formik) => (
+                        <Form className='form-inline'>
+                            <label htmlFor = 'Select Year' className="control-label text-white pr-2 usual">Select Year and Month</label>
+                            <FormControl control = 'select' name = 'year' options = {yearoptions} />
+                            <FormControl control = 'select' name = 'month' options = {monthoptions} />
+                            <button className='btn btn-sm btn-success ml-3' type='submit'>Get</button>
+                        </Form>
+                    )
+                }
+                
+            </Formik>
+        </>
+    )
+}
+
+export default GetMonthlyData
